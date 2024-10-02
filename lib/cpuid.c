@@ -62,6 +62,7 @@ static enum ryzen_family cpuid_load_family()
         case 104:
             return FAM_LUCIENNE;
         case 144:
+        case 145:
             return FAM_VANGOGH;
         case 160:
             return FAM_MENDOCINO;
@@ -71,7 +72,7 @@ static enum ryzen_family cpuid_load_family()
         };
         break;
 
-    case 0x19: /* Zen3 */
+    case 0x19: /* Zen3, Zen4 */
         switch (model) {
         case 80:
             return FAM_CEZANNE;
@@ -81,11 +82,22 @@ static enum ryzen_family cpuid_load_family()
         case 116:
         case 120:
             return FAM_PHOENIX;
+        case 117:
+            return FAM_HAWKPOINT;
         default:
             printf("Fam%xh: unsupported model %d\n", family, model);
             break;
         };
         break;
+    case 0x1A: /* Zen5, Zen6 */
+        switch (model) {
+        case 32:
+        case 36:
+            return FAM_STRIXPOINT;
+        default:
+            printf("Fam%xh: unsupported model %d\n", family, model);
+            break;
+        }
 
     default:
         printf("Unsupported family: %xh\n", family);
